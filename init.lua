@@ -202,6 +202,9 @@ vim.keymap.set('n', '<leader>P', ':"+p<CR>', { desc = 'Paste line from clipboard
 vim.keymap.set('x', '<leader>y', '"+y', { desc = 'Yank to clipboard' })
 vim.keymap.set('x', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
 
+-- Project view
+vim.keymap.set('n', '<leader>pv', '<cmd>Ex<CR>', { desc = 'Open project view' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
