@@ -250,7 +250,24 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  'github/copilot.vim', -- copilot
+  {
+    'github/copilot.vim', -- copilot
+    branch = 'main',
+    config = function()
+      -- toggle copilot
+      vim.g.copilot_enabled = false
+
+      vim.keymap.set('n', '<leader>cp', function()
+        if vim.g.copilot_enabled then
+          vim.g.copilot_enabled = false
+          vim.cmd 'echo "Copilot disabled"'
+        else
+          vim.g.copilot_enabled = true
+          vim.cmd 'echo "Copilot enabled"'
+        end
+      end, { desc = 'Toggle [C]opilot' })
+    end,
+  },
   {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
