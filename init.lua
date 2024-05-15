@@ -219,6 +219,9 @@ vim.keymap.set('n', '<leader>td', function()
   end
 end, { desc = 'Toggle [T]heme [D]ark' })
 
+-- use control + backspace to delete a word
+vim.keymap.set('i', '<C-BS>', '<C-w>', { desc = 'Delete word' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
