@@ -210,6 +210,15 @@ vim.keymap.set('x', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
 -- Project view
 vim.keymap.set('n', '<leader>pv', '<cmd>Ex<CR>', { desc = 'Open project view' })
 
+-- Toogle dark mode
+vim.keymap.set('n', '<leader>td', function()
+  if vim.o.background == 'dark' then
+    vim.o.background = 'light'
+  else
+    vim.o.background = 'dark'
+  end
+end, { desc = 'Toggle [T]heme [D]ark' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -246,7 +255,7 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth',     -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   {
     'github/copilot.vim', -- copilot
     branch = 'main',
@@ -314,15 +323,15 @@ require('lazy').setup({
         end
 
         require('telescope.pickers')
-            .new({}, {
-              prompt_title = 'Harpoon',
-              finder = require('telescope.finders').new_table {
-                results = file_paths,
-              },
-              previewer = conf.file_previewer {},
-              sorter = conf.generic_sorter {},
-            })
-            :find()
+          .new({}, {
+            prompt_title = 'Harpoon',
+            finder = require('telescope.finders').new_table {
+              results = file_paths,
+            },
+            previewer = conf.file_previewer {},
+            sorter = conf.generic_sorter {},
+          })
+          :find()
       end
 
       vim.keymap.set('n', '<leader>hf', function()
@@ -341,7 +350,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',    opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -377,7 +386,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -423,7 +432,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -654,6 +663,18 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+        eslint = {
+          -- cmd = {...},
+          -- filetypes = { ...},
+          -- capabilities = {},
+          settings = {
+            workingDirectories = { mode = 'auto' },
+            -- This is an example of how to disable formatting for tsserver
+            -- tsserver = {
+            --   formatting = false,
+            -- },
+          },
+        },
 
         lua_ls = {
           -- cmd = {...},
@@ -844,7 +865,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'tokyonight-moon'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -853,6 +874,41 @@ require('lazy').setup({
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+
+  {
+    'laytan/cloak.nvim',
+    config = function()
+      require('cloak').setup {
+        enabled = true,
+        cloak_character = '*',
+        -- The applied highlight group (colors) on the cloaking, see `:h highlight`.
+        highlight_group = 'Comment',
+        -- Applies the length of the replacement characters for all matched
+        -- patterns, defaults to the length of the matched pattern.
+        cloak_length = nil, -- Provide a number if you want to hide the true length of the value.
+        -- Whether it should try every pattern to find the best fit or stop after the first.
+        try_all_patterns = true,
+        -- Set to true to cloak Telescope preview buffers. (Required feature not in 0.1.x)
+        cloak_telescope = true,
+        patterns = {
+          {
+            -- Match any file starting with '.env'.
+            -- This can be a table to match multiple file patterns.
+            file_pattern = '.env*',
+            -- Match an equals sign and any character after it.
+            -- This can also be a table of patterns to cloak,
+            -- example: cloak_pattern = { ':.+', '-.+' } for yaml files.
+            cloak_pattern = '=.+',
+            -- A function, table or string to generate the replacement.
+            -- The actual replacement will contain the 'cloak_character'
+            -- where it doesn't cover the original text.
+            -- If left empty the legacy behavior of keeping the first character is retained.
+            replace = nil,
+          },
+        },
+      }
+    end,
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',

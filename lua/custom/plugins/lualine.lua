@@ -178,6 +178,18 @@ return {
       color = { fg = '#ffffff', gui = 'bold' },
     }
 
+    -- add copilot status enabled/disabled
+    ins_right {
+      function()
+        local msg = '🤖⛔'
+        if vim.g.copilot_enabled then
+          msg = '🤖✅'
+        end
+
+        return msg
+      end,
+    }
+
     -- Add components to right sections
     ins_right {
       'o:encoding', -- option component same as &encoding in viml
