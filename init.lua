@@ -214,13 +214,16 @@ vim.keymap.set('n', '<leader>pv', '<cmd>Ex<CR>', { desc = 'Open project view' })
 vim.keymap.set('n', '<leader>td', function()
   if vim.o.background == 'dark' then
     vim.o.background = 'light'
+    vim.g.lualine_theme = 'onedark'
   else
     vim.o.background = 'dark'
+    vim.g.lualine_theme = 'onelight'
   end
 end, { desc = 'Toggle [T]heme [D]ark' })
 
 -- use control + backspace to delete a word
 vim.keymap.set('i', '<C-BS>', '<C-w>', { desc = 'Delete word' })
+vim.keymap.set('c', '<C-BS>', '<C-w>', { desc = 'Delete word' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -445,6 +448,19 @@ require('lazy').setup({
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
+  },
+
+  {
+    'xiyaowong/transparent.nvim',
+    opts = {
+      extra_groups = {
+        "NormalFloat",
+        "NvimTreeNormal",
+      },
+    },
+    config = function()
+      vim.g.transparent_enabled = true
+    end,
   },
 
   -- NOTE: Plugins can specify dependencies.
@@ -877,6 +893,7 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
     },
     config = function()
       -- See `:help cmp`
