@@ -210,7 +210,7 @@ vim.keymap.set('x', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
 -- Project view
 vim.keymap.set('n', '<leader>pv', '<cmd>Ex<CR>', { desc = 'Open project view' })
 
--- Toogle dark mode
+-- Toggle dark mode
 vim.keymap.set('n', '<leader>td', function()
   if vim.o.background == 'dark' then
     vim.o.background = 'light'
@@ -262,6 +262,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-fugitive',
   {
     'github/copilot.vim', -- copilot
     branch = 'main',
@@ -293,7 +294,7 @@ require('lazy').setup({
       end, { desc = 'Toggle [H]arpoon menu' })
 
       vim.keymap.set('n', '<leader>ha', function()
-        harpoon:list():append()
+        harpoon:list():add()
       end, { desc = '[H]arpoon [A]dd' })
 
       vim.keymap.set('n', '<leader>hh', function()
