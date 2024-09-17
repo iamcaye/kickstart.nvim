@@ -223,7 +223,7 @@ vim.keymap.set('x', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
 -- Project view
 vim.keymap.set('n', '<leader>pv', '<cmd>Ex<CR>', { desc = 'Open project view' })
 
--- Toogle dark mode
+-- Toggle dark mode
 vim.keymap.set('n', '<leader>td', function()
   if vim.o.background == 'dark' then
     vim.o.background = 'light'
