@@ -87,6 +87,7 @@ P.S. You can delete this when you're done too. It's your config now! :)
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+-- vim.g.colorscheme = 'default'
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -191,6 +192,11 @@ vim.keymap.set('n', '<C-A-Down>', '<cmd>resize -2<CR>', { desc = 'Decrease heigh
 vim.keymap.set('n', '<C-A-Left>', '<cmd>vertical resize +2<CR>', { desc = 'Increase width' })
 vim.keymap.set('n', '<C-A-Right>', '<cmd>vertical resize -2<CR>', { desc = 'Decrease width' })
 
+-- disable line number on terminal
+vim.api.nvim_command 'autocmd TermOpen * setlocal nonumber norelativenumber'
+vim.api.nvim_command 'autocmd TermOpen * startinsert'
+vim.api.nvim_command 'autocmd TermEnter * setlocal signcolumn=no'
+
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -199,6 +205,13 @@ vim.keymap.set('n', '<C-A-Right>', '<cmd>vertical resize -2<CR>', { desc = 'Decr
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
+
+vim.keymap.set('n', '<leader>t', '<cmd>vsp term://zsh<CR>', { desc = 'Open a new [T]erminal' })
+vim.keymap.set('n', '<leader>tf', '<cmd>e term://zsh<CR>', { desc = 'Open a new [T]erminal] [F]ullscreen' })
+vim.keymap.set('n', '<leader>th', '<cmd>sp term://zsh<CR>', { desc = 'Open a new [T]erminal [H]orizontally' })
+-- open it in a new tab
+vim.keymap.set('n', '<leader>tt', '<cmd>tabnew term://zsh<CR>', { desc = 'Open a new [T]erminal in a new [T]ab' })
+
 --
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
@@ -252,6 +265,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- remove line numbers when in terminal mode
+vim.api.nvim_create_autocmd('TermOpen', {
+  desc = 'Remove line numbers when in terminal mode',
+  group = vim.api.nvim_create_augroup('kickstart-termopen', { clear = true }),
+  callback = function()
+    vim.opt.number = false
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -277,8 +299,15 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-fugitive',
+
+  -- INFO: SQL plugin
+  'tpope/vim-dadbod',
+  'kristijanhusak/vim-dadbod-completion',
+  'kristijanhusak/vim-dadbod-ui',
+
   {
     'github/copilot.vim', -- copilot
     branch = 'main',
@@ -474,6 +503,8 @@ require('lazy').setup({
     },
     config = function()
       vim.g.transparent_enabled = false
+      -- add shortcuts to toggle transparency
+      vim.keymap.set('n', '<leader>to', '<cmd>TransparentToggle<CR>', { desc = 'Toggle [O]pacity' })
     end,
   },
 
@@ -553,9 +584,11 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
+
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sg', builtin.git_files, { desc = '[S]earch [G]it files' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -1008,7 +1041,19 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      highlight = {
+        before = 'fg',
+        keyword = 'wide',
+        after = 'fg',
+      },
+      signs = true,
+    },
+  },
 
   {
     'laytan/cloak.nvim',
