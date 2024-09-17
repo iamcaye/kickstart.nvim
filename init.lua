@@ -180,6 +180,17 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- open terminal in varios ways
+vim.keymap.set('n', '<leader>ts', '<cmd>split term://zsh<CR>', { desc = 'Open [T]erminal [S]plit' })
+vim.keymap.set('n', '<leader>tv', '<cmd>vsplit term://zsh<CR>', { desc = 'Open [T]erminal [V]ertical' })
+vim.keymap.set('n', '<leader>tt', '<cmd>tabnew term://zsh<CR>', { desc = 'Open [T]erminal [T]ab' })
+
+-- better resizing with ctrl + alt + arrow keys
+vim.keymap.set('n', '<C-A-Up>', '<cmd>resize +2<CR>', { desc = 'Increase height' })
+vim.keymap.set('n', '<C-A-Down>', '<cmd>resize -2<CR>', { desc = 'Decrease height' })
+vim.keymap.set('n', '<C-A-Left>', '<cmd>vertical resize +2<CR>', { desc = 'Increase width' })
+vim.keymap.set('n', '<C-A-Right>', '<cmd>vertical resize -2<CR>', { desc = 'Decrease width' })
+
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -215,8 +226,10 @@ vim.keymap.set('n', '<leader>td', function()
   if vim.o.background == 'dark' then
     vim.o.background = 'light'
     vim.g.lualine_theme = 'onedark'
+    vim.cmd.colorscheme = 'tokyonight-day'
   else
     vim.o.background = 'dark'
+    vim.cmd.colorscheme = 'tokyonight-moon'
     vim.g.lualine_theme = 'onelight'
   end
 end, { desc = 'Toggle [T]heme [D]ark' })
@@ -350,6 +363,7 @@ require('lazy').setup({
     end,
   },
 
+  'mfussenegger/nvim-jdtls',
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -454,12 +468,12 @@ require('lazy').setup({
     'xiyaowong/transparent.nvim',
     opts = {
       extra_groups = {
-        "NormalFloat",
-        "NvimTreeNormal",
+        'NormalFloat',
+        'NvimTreeNormal',
       },
     },
     config = function()
-      vim.g.transparent_enabled = true
+      vim.g.transparent_enabled = false
     end,
   },
 
