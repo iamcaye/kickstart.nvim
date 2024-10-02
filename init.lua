@@ -304,24 +304,9 @@ require('lazy').setup({
   'tpope/vim-dadbod',
   'kristijanhusak/vim-dadbod-completion',
   'kristijanhusak/vim-dadbod-ui',
-
   {
-    'github/copilot.vim', -- copilot
-    branch = 'main',
-    config = function()
-      -- toggle copilot
-      vim.g.copilot_enabled = false
-
-      vim.keymap.set('n', '<leader>cp', function()
-        if vim.g.copilot_enabled then
-          vim.g.copilot_enabled = false
-          vim.cmd 'echo "Copilot disabled"'
-        else
-          vim.g.copilot_enabled = true
-          vim.cmd 'echo "Copilot enabled"'
-        end
-      end, { desc = 'Toggle [C]opilot' })
-    end,
+    "sourcegraph/sg.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
   {
     'ThePrimeagen/harpoon',
