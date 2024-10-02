@@ -87,8 +87,6 @@ P.S. You can delete this when you're done too. It's your config now! :)
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
--- vim.g.colorscheme = 'default'
--- vim.g.colorscheme = 'default'
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -309,24 +307,24 @@ require('lazy').setup({
   'kristijanhusak/vim-dadbod-completion',
   'kristijanhusak/vim-dadbod-ui',
 
-  {
-    'github/copilot.vim', -- copilot
-    branch = 'main',
-    config = function()
-      -- toggle copilot
-      vim.g.copilot_enabled = false
-
-      vim.keymap.set('n', '<leader>cp', function()
-        if vim.g.copilot_enabled then
-          vim.g.copilot_enabled = false
-          vim.cmd 'echo "Copilot disabled"'
-        else
-          vim.g.copilot_enabled = true
-          vim.cmd 'echo "Copilot enabled"'
-        end
-      end, { desc = 'Toggle [C]opilot' })
-    end,
-  },
+  -- {
+  --   'github/copilot.vim', -- copilot
+  --   branch = 'main',
+  --   config = function()
+  --     -- toggle copilot
+  --     vim.g.copilot_enabled = false
+  --
+  --     vim.keymap.set('n', '<leader>cp', function()
+  --       if vim.g.copilot_enabled then
+  --         vim.g.copilot_enabled = false
+  --         vim.cmd 'echo "Copilot disabled"'
+  --       else
+  --         vim.g.copilot_enabled = true
+  --         vim.cmd 'echo "Copilot enabled"'
+  --       end
+  --     end, { desc = 'Toggle [C]opilot' })
+  --   end,
+  -- },
   {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
@@ -376,15 +374,15 @@ require('lazy').setup({
         end
 
         require('telescope.pickers')
-          .new({}, {
-            prompt_title = 'Harpoon',
-            finder = require('telescope.finders').new_table {
-              results = file_paths,
-            },
-            previewer = conf.file_previewer {},
-            sorter = conf.generic_sorter {},
-          })
-          :find()
+            .new({}, {
+              prompt_title = 'Harpoon',
+              finder = require('telescope.finders').new_table {
+                results = file_paths,
+              },
+              previewer = conf.file_previewer {},
+              sorter = conf.generic_sorter {},
+            })
+            :find()
       end
 
       vim.keymap.set('n', '<leader>hf', function()
@@ -440,7 +438,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -483,7 +481,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -538,7 +536,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -636,7 +634,7 @@ require('lazy').setup({
       },
     },
   },
-  { 'Bilal2453/luvit-meta', lazy = true },
+  { 'Bilal2453/luvit-meta',  lazy = true },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -648,7 +646,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -896,7 +894,7 @@ require('lazy').setup({
         }
       end,
       formatters_by_ft = {
-        lua = { 'stylua' },
+        -- lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -1146,7 +1144,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
