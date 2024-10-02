@@ -190,6 +190,18 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Copy/Paste to/from system clipboard
+vim.keymap.set('n', '<leader>y', '"+y', { desc = 'Yank to clipboard' })
+vim.keymap.set('n', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
+
+-- Copy/Paste line to/from system clipboard
+vim.keymap.set('n', '<leader>Y', ':"+y<CR>', { desc = 'Yank line to clipboard' })
+vim.keymap.set('n', '<leader>P', ':"+p<CR>', { desc = 'Paste line from clipboard' })
+
+-- Copy/Paste to/from system clipboard in visual mode
+vim.keymap.set('x', '<leader>y', '"+y', { desc = 'Yank to clipboard' })
+vim.keymap.set('x', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -230,6 +242,72 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  'github/copilot.vim', -- copilot
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local harpoon = require 'harpoon'
+      harpoon.setup()
+
+      vim.keymap.set('n', '<leader>hm', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, { desc = 'Toggle [H]arpoon menu' })
+
+      vim.keymap.set('n', '<leader>ha', function()
+        harpoon:list():append()
+      end, { desc = '[H]arpoon [A]dd' })
+
+      vim.keymap.set('n', '<leader>hh', function()
+        harpoon:list():select(1)
+      end, { desc = '[H]arpoon [S]elect 1' })
+
+      vim.keymap.set('n', '<leader>hj', function()
+        harpoon:list():select(2)
+      end, { desc = '[H]arpoon [S]elect 2' })
+
+      vim.keymap.set('n', '<leader>hk', function()
+        harpoon:list():select(3)
+      end, { desc = '[H]arpoon [S]elect 3' })
+
+      vim.keymap.set('n', '<leader>hl', function()
+        harpoon:list():select(4)
+      end, { desc = '[H]arpoon [S]elect 4' })
+
+      vim.keymap.set('n', '<leader>hn', function()
+        harpoon:list():next()
+      end, { desc = '[H]arpoon [N]ext' })
+
+      vim.keymap.set('n', '<leader>hp', function()
+        harpoon:list():prev()
+      end, { desc = '[H]arpoon [P]revious' })
+
+      -- basic telescope configuration
+      local conf = require('telescope.config').values
+      local function toggle_telescope(harpoon_files)
+        local file_paths = {}
+        for _, item in ipairs(harpoon_files.items) do
+          table.insert(file_paths, item.value)
+        end
+
+        require('telescope.pickers')
+          .new({}, {
+            prompt_title = 'Harpoon',
+            finder = require('telescope.finders').new_table {
+              results = file_paths,
+            },
+            previewer = conf.file_previewer {},
+            sorter = conf.generic_sorter {},
+          })
+          :find()
+      end
+
+      vim.keymap.set('n', '<leader>hf', function()
+        toggle_telescope(harpoon:list())
+      end, { desc = 'Open harpoon window' })
+    end,
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -253,6 +331,7 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      current_line_blame = true,
     },
   },
 
