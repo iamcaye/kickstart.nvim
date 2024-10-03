@@ -231,7 +231,7 @@ vim.keymap.set('x', '<leader>y', '"+y', { desc = 'Yank to clipboard' })
 vim.keymap.set('x', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
 
 -- Project view
-vim.keymap.set('n', '<leader>pv', '<cmd>Ex<CR>', { desc = 'Open project view' })
+vim.keymap.set('n', '<leader>pv', '<cmd>Oil<CR>', { desc = 'Open project view' })
 
 -- Toggle dark mode
 vim.keymap.set('n', '<leader>td', function()
@@ -307,6 +307,25 @@ require('lazy').setup({
   'kristijanhusak/vim-dadbod-completion',
   'kristijanhusak/vim-dadbod-ui',
 
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    config = function()
+      require("oil").setup {
+        columns = { "icon" },
+        view_options = {
+          show_hidden = true
+        },
+      }
+    end
+  },
+
+  -- { -- cody
+  --   "sourcegraph/sg.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  -- },
   -- {
   --   'github/copilot.vim', -- copilot
   --   branch = 'main',
