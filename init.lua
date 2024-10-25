@@ -90,8 +90,9 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -102,6 +103,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
+vim.opt.colorcolumn = "80,120"
 
 -- Make line numbers default
 vim.opt.number = true
@@ -237,12 +239,11 @@ vim.keymap.set('n', '<leader>pv', '<cmd>Oil<CR>', { desc = 'Open project view' }
 vim.keymap.set('n', '<leader>td', function()
   if vim.o.background == 'dark' then
     vim.o.background = 'light'
-    vim.g.lualine_theme = 'onedark'
     vim.cmd.colorscheme = 'tokyonight-day'
   else
     vim.o.background = 'dark'
     vim.cmd.colorscheme = 'tokyonight-moon'
-    vim.g.lualine_theme = 'onelight'
+    vim.cmd.hi 'ColorColumn guibg=#333333'
   end
 end, { desc = 'Toggle [T]heme [D]ark' })
 
@@ -860,9 +861,9 @@ require('lazy').setup({
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-      })
+      -- vim.list_extend(ensure_installed, {
+      --   'stylua', -- Used to format Lua code
+      -- })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
@@ -1054,7 +1055,8 @@ require('lazy').setup({
       vim.cmd.colorscheme 'tokyonight-moon'
 
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'Comment gui=none'
+      vim.cmd.hi 'ColorColumn guibg=#333333'
     end,
   },
 
@@ -1076,6 +1078,7 @@ require('lazy').setup({
   {
     'laytan/cloak.nvim',
     config = function()
+      vim.keymap.set('n', '<leader>ck', '<cmd>CloakToggle<CR>')
       require('cloak').setup {
         enabled = true,
         cloak_character = '*',
