@@ -110,7 +110,7 @@ vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
-vim.opt.wrap = false
+vim.opt.wrap = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
@@ -121,9 +121,9 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
+-- vim.schedule(function()
+--   vim.opt.clipboard = 'unnamedplus'
+-- end)
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -326,24 +326,6 @@ require('lazy').setup({
   -- { -- cody
   --   "sourcegraph/sg.nvim",
   --   dependencies = { "nvim-lua/plenary.nvim" },
-  -- },
-  -- {
-  --   'github/copilot.vim', -- copilot
-  --   branch = 'main',
-  --   config = function()
-  --     -- toggle copilot
-  --     vim.g.copilot_enabled = false
-  --
-  --     vim.keymap.set('n', '<leader>cp', function()
-  --       if vim.g.copilot_enabled then
-  --         vim.g.copilot_enabled = false
-  --         vim.cmd 'echo "Copilot disabled"'
-  --       else
-  --         vim.g.copilot_enabled = true
-  --         vim.cmd 'echo "Copilot enabled"'
-  --       end
-  --     end, { desc = 'Toggle [C]opilot' })
-  --   end,
   -- },
   {
     'ThePrimeagen/harpoon',
@@ -750,6 +732,8 @@ require('lazy').setup({
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+          vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
