@@ -1,4 +1,4 @@
--- return {
---   "sourcegraph/sg.nvim",
---   dependencies = { "nvim-lua/plenary.nvim" },
--- }
+return {
+  --   "sourcegraph/sg.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+}

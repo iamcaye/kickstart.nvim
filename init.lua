@@ -503,7 +503,7 @@ require('lazy').setup({
       },
     },
     config = function()
-      vim.g.transparent_enabled = false
+      vim.g.transparent_enabled = true
       -- add shortcuts to toggle transparency
       vim.keymap.set('n', '<leader>to', '<cmd>TransparentToggle<CR>', { desc = 'Toggle [O]pacity' })
     end,
