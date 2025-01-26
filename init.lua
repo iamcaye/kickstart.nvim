@@ -494,21 +494,6 @@ require('lazy').setup({
     },
   },
 
-  {
-    'xiyaowong/transparent.nvim',
-    opts = {
-      extra_groups = {
-        'NormalFloat',
-        'NvimTreeNormal',
-      },
-    },
-    config = function()
-      vim.g.transparent_enabled = true
-      -- add shortcuts to toggle transparency
-      vim.keymap.set('n', '<leader>to', '<cmd>TransparentToggle<CR>', { desc = 'Toggle [O]pacity' })
-    end,
-  },
-
   -- NOTE: Plugins can specify dependencies.
   --
   -- The dependencies are proper plugin specifications as well - anything
