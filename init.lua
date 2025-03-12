@@ -245,6 +245,9 @@ vim.keymap.set('n', '<leader>td', function()
     vim.cmd.colorscheme = 'tokyonight-moon'
     vim.cmd.hi 'ColorColumn guibg=#333333'
   end
+
+  -- background transparent
+  vim.cmd 'hi Normal guibg=NONE ctermbg=NONE'
 end, { desc = 'Toggle [T]heme [D]ark' })
 
 -- use control + backspace to delete a word
