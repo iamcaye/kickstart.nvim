@@ -720,8 +720,8 @@ require('lazy').setup({
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-          vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-          vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+          vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts)
+          vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, opts)
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
