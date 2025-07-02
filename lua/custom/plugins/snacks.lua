@@ -75,10 +75,47 @@ return {
       { "<leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
       { "<leader>gl", function() Snacks.lazygit.log() end,             desc = "Lazygit Log (cwd)" },
       { "<leader>un", function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications" },
-      { "<c-/>",      function() Snacks.terminal() end,                desc = "Toggle Terminal" },
-      { "<c-_>",      function() Snacks.terminal() end,                desc = "which_key_ignore" },
+      -- { "<c-/>",      function() Snacks.terminal() end,                desc = "Toggle Terminal" },
+      -- { "<c-_>",      function() Snacks.terminal() end,                desc = "which_key_ignore" },
       { "]]",         function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
       { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
+      {
+        "<leader>mm",
+        function()
+          local bufnr = vim.api.nvim_create_buf(false, true)
+          vim.api.nvim_buf_call(bufnr, function()
+            vim.fn.termopen('neomutt', {
+              on_error = function(_, err)
+                print("error: " .. err)
+              end,
+              on_exit = function(_, code)
+                if code ~= 0 then
+                  print("exited with code " .. code)
+                end
+                vim.schedule(function()
+                  vim.api.nvim_buf_delete(bufnr, { force = true })
+                end)
+              end
+            })
+          end)
+
+          Snacks.win({
+            buf = bufnr,
+            width = 0.9,
+            height = 0.8,
+            border = "rounded",
+            wo = {
+              number = false,
+              relativenumber = false,
+              wrap = false,
+              signcolumn = "no",
+              statuscolumn = " ",
+            },
+          })
+        end,
+        desc = "Open Mail",
+        mode = { "n", "t" }
+      },
     },
 
   }
