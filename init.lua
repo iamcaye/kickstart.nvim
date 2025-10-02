@@ -37,11 +37,7 @@ What is Kickstart?
       - https://learnxinyminutes.com/docs/lua/
 
     After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
-
-Kickstart Guide:
+    reference for how Neovim integrat Guide:
 
   TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
 
@@ -240,17 +236,22 @@ vim.keymap.set('x', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
 vim.keymap.set('n', '<leader>pv', '<cmd>Oil<CR>', { desc = 'Open project view' })
 
 -- Toggle dark mode
-vim.keymap.set('n', '<leader>td', function()
-  print(vim.cmd('colorscheme'))
-  if vim.g.colorscheme == 'github_dark_high_contrast' then
-    vim.cmd('colorscheme github_light_high_contrast')
-  else
-    vim.cmd('colorscheme github_dark_high_contrast')
-  end
-
-  -- background transparent
-  vim.cmd 'hi Normal guibg=NONE ctermbg=NONE'
-end, { desc = 'Toggle [T]heme [D]ark' })
+-- vim.keymap.set('n', '<leader>td', function()
+--   if vim.g.dark_mode == nil then
+--     -- if dark_mode is not set, set it to true
+--     print 'Setting dark mode to true'
+--     vim.g.dark_mode = true
+--   end
+--
+--   if vim.g.dark_mode then
+--     vim.g.dark_mode = false
+--     vim.cmd('colorscheme github_light_high_contrast')
+--   else
+--     vim.g.dark_mode = true
+--     vim.cmd('colorscheme github_dark_high_contrast')
+--     -- vim.cmd.hi 'ColorColumn guibg=#333333'
+--   end
+-- end, { desc = 'Toggle [T]heme [D]ark' })
 
 -- use control + backspace to delete a word
 vim.keymap.set('i', '<C-BS>', '<C-w>', { desc = 'Delete word' })
@@ -307,12 +308,6 @@ require('lazy').setup({
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-fugitive',
-
-  -- INFO: SQL plugin
-  'tpope/vim-dadbod',
-  'kristijanhusak/vim-dadbod-completion',
-  'kristijanhusak/vim-dadbod-ui',
-
   {
     'stevearc/oil.nvim',
     opts = {},
@@ -398,7 +393,6 @@ require('lazy').setup({
     end,
   },
 
-  'mfussenegger/nvim-jdtls',
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
