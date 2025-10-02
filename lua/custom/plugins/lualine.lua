@@ -7,21 +7,21 @@ return {
     -- Credit: glepnir
     local lualine = require 'lualine'
 
-      -- Color table for highlights
-      -- stylua: ignore
-      local colors = {
-        bg       = '#202328',
-        fg       = '#bbc2cf',
-        yellow   = '#ECBE7B',
-        cyan     = '#008080',
-        darkblue = '#081633',
-        green    = '#98be65',
-        orange   = '#FF8800',
-        violet   = '#a9a1e1',
-        magenta  = '#c678dd',
-        blue     = '#51afef',
-        red      = '#ec5f67',
-      }
+    -- Color table for highlights
+    -- stylua: ignore
+    local colors = {
+      bg       = '#202328',
+      fg       = '#bbc2cf',
+      yellow   = '#ECBE7B',
+      cyan     = '#008080',
+      darkblue = '#081633',
+      green    = '#98be65',
+      orange   = '#FF8800',
+      violet   = '#a9a1e1',
+      magenta  = '#c678dd',
+      blue     = '#51afef',
+      red      = '#ec5f67',
+    }
 
     local conditions = {
       buffer_not_empty = function()
@@ -86,7 +86,7 @@ return {
       function()
         return '▊'
       end,
-      color = { fg = colors.blue }, -- Sets highlighting of component
+      color = { fg = colors.blue },      -- Sets highlighting of component
       padding = { left = 0, right = 1 }, -- We don't need space before this
     }
 
@@ -161,8 +161,8 @@ return {
       -- Lsp server name .
       function()
         local msg = 'No Active Lsp'
-        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-        local clients = vim.lsp.get_active_clients()
+        local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+        local clients = vim.lsp.get_clients()
         if next(clients) == nil then
           return msg
         end
@@ -192,7 +192,7 @@ return {
 
     -- Add components to right sections
     ins_right {
-      'o:encoding', -- option component same as &encoding in viml
+      'o:encoding',       -- option component same as &encoding in viml
       fmt = string.upper, -- I'm not sure why it's upper case either ;)
       cond = conditions.hide_in_width,
       color = { fg = colors.green, gui = 'bold' },
