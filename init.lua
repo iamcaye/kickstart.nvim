@@ -37,11 +37,7 @@ What is Kickstart?
       - https://learnxinyminutes.com/docs/lua/
 
     After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
-
-Kickstart Guide:
+    reference for how Neovim integrat Guide:
 
   TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
 
@@ -240,16 +236,22 @@ vim.keymap.set('x', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
 vim.keymap.set('n', '<leader>pv', '<cmd>Oil<CR>', { desc = 'Open project view' })
 
 -- Toggle dark mode
-vim.keymap.set('n', '<leader>td', function()
-  if vim.o.background == 'dark' then
-    vim.o.background = 'light'
-    vim.cmd.colorscheme = 'tokyonight-day'
-  else
-    vim.o.background = 'dark'
-    vim.cmd.colorscheme = 'tokyonight-moon'
-    vim.cmd.hi 'ColorColumn guibg=#333333'
-  end
-end, { desc = 'Toggle [T]heme [D]ark' })
+-- vim.keymap.set('n', '<leader>td', function()
+--   if vim.g.dark_mode == nil then
+--     -- if dark_mode is not set, set it to true
+--     print 'Setting dark mode to true'
+--     vim.g.dark_mode = true
+--   end
+--
+--   if vim.g.dark_mode then
+--     vim.g.dark_mode = false
+--     vim.cmd('colorscheme github_light_high_contrast')
+--   else
+--     vim.g.dark_mode = true
+--     vim.cmd('colorscheme github_dark_high_contrast')
+--     -- vim.cmd.hi 'ColorColumn guibg=#333333'
+--   end
+-- end, { desc = 'Toggle [T]heme [D]ark' })
 
 -- use control + backspace to delete a word
 vim.keymap.set('i', '<C-BS>', '<C-w>', { desc = 'Delete word' })
@@ -306,12 +308,6 @@ require('lazy').setup({
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-fugitive',
-
-  -- INFO: SQL plugin
-  'tpope/vim-dadbod',
-  'kristijanhusak/vim-dadbod-completion',
-  'kristijanhusak/vim-dadbod-ui',
-
   {
     'stevearc/oil.nvim',
     opts = {},
@@ -397,7 +393,6 @@ require('lazy').setup({
     end,
   },
 
-  'mfussenegger/nvim-jdtls',
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -408,7 +403,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',  opts = {} },
 
   -- Alternatively, use `config = function() ... end` for full control over the configuration.
   -- If you prefer to call `setup` explicitly, use:
@@ -508,21 +503,6 @@ require('lazy').setup({
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
-  },
-
-  {
-    'xiyaowong/transparent.nvim',
-    opts = {
-      extra_groups = {
-        'NormalFloat',
-        'NvimTreeNormal',
-      },
-    },
-    config = function()
-      vim.g.transparent_enabled = true
-      -- add shortcuts to toggle transparency
-      vim.keymap.set('n', '<leader>to', '<cmd>TransparentToggle<CR>', { desc = 'Toggle [O]pacity' })
-    end,
   },
 
   -- NOTE: Plugins can specify dependencies.
@@ -664,7 +644,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -1223,7 +1203,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
