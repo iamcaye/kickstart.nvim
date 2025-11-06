@@ -1,5 +1,8 @@
 return {
   "folke/sidekick.nvim",
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-textobjects"
+  },
   opts = {
     -- add any options here
     cli = {
