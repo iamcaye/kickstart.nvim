@@ -19,7 +19,8 @@ local p = {
 
   comment = "#565f89",
   border = "#ff7f2a",
-  selection = "#2b2f43",
+  selection = "#633800",
+  current_line = "#363b49",
 }
 
 local function hi(g, o) vim.api.nvim_set_hl(0, g, o) end
@@ -30,7 +31,7 @@ vim.g.colors_name = "caye-ember"
 -----------------------------------------------------------------------
 hi("Normal", { fg = p.fg, bg = p.bg })
 hi("NormalNC", { fg = p.fg_dim, bg = p.bg })
-hi("CursorLine", { bg = p.selection })
+hi("CursorLine", { bg = p.current_line })
 hi("LineNr", { fg = p.comment })
 hi("CursorLineNr", { fg = p.orange_bold, bold = true })
 hi("WinSeparator", { fg = p.border })
