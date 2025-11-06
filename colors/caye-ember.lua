@@ -1,165 +1,131 @@
--- ~/.config/nvim/colors/caye-ember.lua
--- Tema oscuro con acentos anaranjados
--- by ChatGPT (para Caye)
+-- caye-tokyo-orange.nvim
+-- Estilo tokyonight pero con naranja como color protagonista
 
-local palette = {
-  bg        = "#0f1115",
-  bg_alt    = "#141720",
-  bg_dim    = "#0b0d12",
-  fg        = "#e6e6e6",
-  fg_dim    = "#c4c6cc",
+local p = {
+  bg = "#1a1b26",
+  bg_dark = "#16161e",
+  bg_alt = "#1f2230",
+  fg = "#c8c9d4",
+  fg_dim = "#9a9cab",
 
-  -- acentos
-  orange    = "#ffa657",
-  amber     = "#ffb86b",
-  yellow    = "#ffd166",
-  red       = "#ff6b6b",
-  magenta   = "#ff7edb",
-  purple    = "#c792ea",
-  blue      = "#82aaff",
-  cyan      = "#7fdbca",
-  green     = "#a6e3a1",
+  light_orange = "#ffb378",
+  orange = "#ff9f52",
+  orange_bold = "#ff7f2a",
+  yellow = "#eacb8a",
+  green = "#9ece6a",
+  red = "#e46876",
+  magenta = "#bb9af7",
+  cyan = "#7dcfff",
 
-  -- especiales
-  comment   = "#6b7280",
-  border    = "#222638",
-  selection = "#1f2433",
-  subtle    = "#161a24",
+  comment = "#565f89",
+  border = "#ff7f2a",
+  selection = "#2b2f43",
 }
 
--- Helpers
-local function hi(group, opts) vim.api.nvim_set_hl(0, group, opts) end
+local function hi(g, o) vim.api.nvim_set_hl(0, g, o) end
+vim.g.colors_name = "caye-ember"
 
--- Fondo y texto base
-hi("Normal", { fg = palette.fg, bg = palette.bg })
-hi("NormalNC", { fg = palette.fg_dim, bg = palette.bg })
-hi("SignColumn", { bg = palette.bg })
-hi("MsgArea", { fg = palette.fg, bg = palette.bg })
-hi("EndOfBuffer", { fg = palette.bg_dim })
-hi("NonText", { fg = palette.bg_dim })
-hi("Conceal", { fg = palette.comment })
+-----------------------------------------------------------------------
+-- EDITOR UI
+-----------------------------------------------------------------------
+hi("Normal", { fg = p.fg, bg = p.bg })
+hi("NormalNC", { fg = p.fg_dim, bg = p.bg })
+hi("CursorLine", { bg = p.selection })
+hi("LineNr", { fg = p.comment })
+hi("CursorLineNr", { fg = p.orange_bold, bold = true })
+hi("WinSeparator", { fg = p.border })
+hi("Visual", { bg = p.selection })
+hi("Search", { fg = p.bg, bg = p.orange_bold })
+hi("IncSearch", { fg = p.bg, bg = p.orange })
 
--- UI
-hi("CursorLine", { bg = palette.subtle })
-hi("CursorColumn", { bg = palette.subtle })
-hi("CursorLineNr", { fg = palette.orange, bold = true })
-hi("LineNr", { fg = palette.comment })
-hi("VertSplit", { fg = palette.border, bg = palette.bg })
-hi("WinSeparator", { fg = palette.border, bg = palette.bg })
-hi("StatusLine", { fg = palette.fg, bg = palette.bg_alt })
-hi("StatusLineNC", { fg = palette.fg_dim, bg = palette.bg_alt })
-hi("Pmenu", { fg = palette.fg, bg = palette.bg_alt })
-hi("PmenuSel", { fg = palette.bg, bg = palette.orange, bold = true })
-hi("PmenuSbar", { bg = palette.subtle })
-hi("PmenuThumb", { bg = palette.border })
-hi("Search", { fg = palette.bg, bg = palette.amber, bold = true })
-hi("IncSearch", { fg = palette.bg, bg = palette.orange, bold = true })
-hi("Visual", { bg = palette.selection })
-hi("MatchParen", { fg = palette.amber, bold = true })
-hi("Folded", { fg = palette.fg_dim, bg = palette.subtle })
-hi("FoldColumn", { fg = palette.comment, bg = palette.bg })
+hi("Pmenu", { bg = p.bg_alt })
+hi("PmenuSel", { fg = p.bg, bg = p.orange })
 
--- Sintaxis clásica
-hi("Comment", { fg = palette.comment, italic = true })
-hi("Constant", { fg = palette.cyan })
-hi("String", { fg = palette.green })
-hi("Character", { fg = palette.green })
-hi("Number", { fg = palette.yellow })
-hi("Boolean", { fg = palette.yellow, bold = true })
-hi("Float", { fg = palette.yellow })
+-----------------------------------------------------------------------
+-- SINTAXIS / TREESITTER (SEMÁNTICO)
+-----------------------------------------------------------------------
+hi("@comment", { fg = p.comment, italic = true })
+hi("@string", { fg = p.yellow })
+hi("@number", { fg = p.green })
+hi("@boolean", { fg = p.yellow, bold = true })
+hi("@constant", { fg = p.yellow })
 
-hi("Identifier", { fg = palette.blue })
-hi("Function", { fg = palette.orange, bold = true })
+hi("@variable", { fg = p.fg })
+hi("@variable.builtin", { fg = p.orange, italic = true })
 
-hi("Statement", { fg = palette.purple })
-hi("Conditional", { fg = palette.purple })
-hi("Repeat", { fg = palette.purple })
-hi("Label", { fg = palette.magenta })
-hi("Operator", { fg = palette.fg })
-hi("Keyword", { fg = palette.orange, italic = true })
-hi("Exception", { fg = palette.red })
+hi("@field", { fg = p.cyan })
+hi("@property", { fg = p.blue })
+hi("@parameter", { fg = p.fg_dim, italic = true })
 
-hi("PreProc", { fg = palette.magenta })
-hi("Include", { fg = palette.magenta })
-hi("Define", { fg = palette.magenta })
-hi("Macro", { fg = palette.magenta })
-hi("PreCondit", { fg = palette.magenta })
+hi("@type", { fg = p.light_orange })
+hi("@type.builtin", { fg = p.magenta, italic = true })
+hi("@class", { fg = p.magenta, bold = true })
 
-hi("Type", { fg = palette.cyan })
-hi("StorageClass", { fg = palette.cyan })
-hi("Structure", { fg = palette.cyan })
-hi("Typedef", { fg = palette.cyan })
+hi("@function", { fg = p.orange_bold, bold = true })
+hi("@function.builtin", { fg = p.orange, italic = true })
+hi("@method", { fg = p.orange_bold })
 
-hi("Special", { fg = palette.amber })
-hi("SpecialChar", { fg = palette.amber })
-hi("Tag", { fg = palette.blue })
-hi("Delimiter", { fg = palette.fg })
-hi("SpecialComment", { fg = palette.comment, italic = true })
-hi("Debug", { fg = palette.red })
+hi("@keyword", { fg = p.orange, italic = true })
+hi("@keyword.return", { fg = p.orange_bold, bold = true })
+hi("@conditional", { fg = p.orange })
+hi("@repeat", { fg = p.orange })
 
-hi("Underlined", { underline = true })
-hi("Bold", { bold = true })
-hi("Italic", { italic = true })
+-----------------------------------------------------------------------
+-- LSP
+-----------------------------------------------------------------------
+hi("DiagnosticError", { fg = p.red })
+hi("DiagnosticWarn", { fg = p.yellow })
+hi("DiagnosticInfo", { fg = p.cyan })
+hi("DiagnosticHint", { fg = p.comment })
 
--- Diagnósticos LSP
-hi("Error", { fg = palette.red })
-hi("Todo", { fg = palette.bg, bg = palette.blue, bold = true })
+hi("DiagnosticUnderlineError", { undercurl = true, sp = p.red })
 
-hi("DiagnosticError", { fg = palette.red })
-hi("DiagnosticWarn", { fg = palette.amber })
-hi("DiagnosticInfo", { fg = palette.blue })
-hi("DiagnosticHint", { fg = palette.cyan })
+-----------------------------------------------------------------------
+-- TELESCOPE
+-----------------------------------------------------------------------
+hi("TelescopeNormal", { fg = p.fg, bg = p.bg_dark })
+hi("TelescopeBorder", { fg = p.border, bg = p.bg_dark })
+hi("TelescopeSelection", { bg = p.selection, fg = p.orange })
 
-hi("DiagnosticUnderlineError", { undercurl = true, sp = palette.red })
-hi("DiagnosticUnderlineWarn", { undercurl = true, sp = palette.amber })
-hi("DiagnosticUnderlineInfo", { undercurl = true, sp = palette.blue })
-hi("DiagnosticUnderlineHint", { undercurl = true, sp = palette.cyan })
+-----------------------------------------------------------------------
+-- GITSIGNS
+-----------------------------------------------------------------------
+hi("GitSignsAdd", { fg = p.green })
+hi("GitSignsChange", { fg = p.orange })
+hi("GitSignsDelete", { fg = p.red })
 
-hi("LspReferenceText", { bg = palette.subtle })
-hi("LspReferenceRead", { bg = palette.subtle })
-hi("LspReferenceWrite", { bg = palette.subtle })
+-----------------------------------------------------------------------
+-- WHICH-KEY
+-----------------------------------------------------------------------
+hi("WhichKey", { fg = p.orange_bold })
+hi("WhichKeyGroup", { fg = p.magenta })
+hi("WhichKeySeparator", { fg = p.comment })
+hi("WhichKeyDesc", { fg = p.fg })
+hi("WhichKeyFloat", { fg = p.fg, bg = p.bg_dark })
+hi("WhichKeyBorder", { fg = p.border, bg = p.bg_dark })
 
--- Treesitter (prefijo @)
-hi("@comment", { link = "Comment" })
-hi("@punctuation", { fg = palette.fg })
-hi("@operator", { link = "Operator" })
-hi("@string", { link = "String" })
-hi("@character", { link = "Character" })
-hi("@number", { link = "Number" })
-hi("@boolean", { link = "Boolean" })
-hi("@float", { link = "Float" })
-hi("@constant", { link = "Constant" })
-hi("@constant.builtin", { fg = palette.amber })
-hi("@variable", { fg = palette.fg })
-hi("@variable.builtin", { fg = palette.amber })
-hi("@field", { fg = palette.cyan })
-hi("@property", { fg = palette.cyan })
-hi("@parameter", { fg = palette.blue })
-hi("@namespace", { fg = palette.purple })
-hi("@type", { link = "Type" })
-hi("@type.builtin", { fg = palette.cyan, italic = true })
-hi("@function", { link = "Function" })
-hi("@function.builtin", { fg = palette.orange, italic = true })
-hi("@constructor", { fg = palette.orange })
-hi("@keyword", { link = "Keyword" })
-hi("@keyword.return", { fg = palette.purple, bold = true })
-hi("@conditional", { link = "Conditional" })
-hi("@repeat", { link = "Repeat" })
-hi("@tag", { link = "Tag" })
-hi("@attribute", { fg = palette.magenta, italic = true })
+-----------------------------------------------------------------------
+-- OIL.NVIM (HIGHLIGHTS REALES)
+-----------------------------------------------------------------------
+-- Carpeta raíz (proyecto)
+hi("OilTreeRoot", { fg = p.orange_bold, bold = true })
 
--- Telescope
-hi("TelescopeNormal", { fg = palette.fg, bg = palette.bg_alt })
-hi("TelescopeBorder", { fg = palette.border, bg = palette.bg_alt })
-hi("TelescopePromptNormal", { fg = palette.fg, bg = palette.bg_alt })
-hi("TelescopePromptBorder", { fg = palette.border, bg = palette.bg_alt })
-hi("TelescopeSelection", { bg = palette.selection, bold = true })
-hi("TelescopeMatching", { fg = palette.orange, bold = true })
+-- Directorios
+hi("OilTreeDirectory", { fg = p.magenta, bold = true })
 
--- GitSigns
-hi("GitSignsAdd", { fg = palette.green })
-hi("GitSignsChange", { fg = palette.amber })
-hi("GitSignsDelete", { fg = palette.red })
+-- Archivos
+hi("OilTreeFile", { fg = p.fg })
+
+-- Symlink
+hi("OilTreeLinkTarget", { fg = p.cyan, italic = true })
+
+-- Metadatos (suaves)
+hi("OilTreePermission", { fg = p.comment })
+hi("OilTreeSize", { fg = p.comment })
+hi("OilTreeLastModified", { fg = p.comment })
+
+-- Indentaciones del árbol
+hi("OilTreeIndent", { fg = p.comment })
 
 -- Diff
 hi("DiffAdd", { bg = "#0f1a14" })
@@ -168,34 +134,28 @@ hi("DiffDelete", { bg = "#1a0f12" })
 hi("DiffText", { bg = "#1f2638" })
 
 -- Float / Borders
-hi("NormalFloat", { fg = palette.fg, bg = palette.bg_alt })
-hi("FloatBorder", { fg = palette.border, bg = palette.bg_alt })
-hi("WhichKeyFloat", { fg = palette.fg, bg = palette.bg_alt })
+hi("NormalFloat", { fg = p.border, bg = p.bg_alt })
+hi("FloatBorder", { fg = p.fg, bg = p.bg_alt })
+hi("WhichKeyFloat", { fg = p.fg, bg = p.bg_alt })
 
 -- Cursor
 hi("Cursor", { reverse = true })
 hi("TermCursor", { reverse = true })
 
--- Barra de color para column guide
-hi("ColorColumn", { bg = palette.subtle })
-
 -- Terminal ANSI (opcional)
-vim.g.terminal_color_0  = palette.bg_dim
-vim.g.terminal_color_1  = palette.red
-vim.g.terminal_color_2  = palette.green
-vim.g.terminal_color_3  = palette.yellow
-vim.g.terminal_color_4  = palette.blue
-vim.g.terminal_color_5  = palette.purple
-vim.g.terminal_color_6  = palette.cyan
-vim.g.terminal_color_7  = palette.fg
-vim.g.terminal_color_8  = palette.comment
-vim.g.terminal_color_9  = palette.red
-vim.g.terminal_color_10 = palette.green
-vim.g.terminal_color_11 = palette.yellow
-vim.g.terminal_color_12 = palette.blue
-vim.g.terminal_color_13 = palette.purple
-vim.g.terminal_color_14 = palette.cyan
-vim.g.terminal_color_15 = palette.fg
-
--- Nombre del esquema
-vim.g.colors_name       = "caye-ember"
+vim.g.terminal_color_0  = p.bg_dim
+vim.g.terminal_color_1  = p.red
+vim.g.terminal_color_2  = p.green
+vim.g.terminal_color_3  = p.yellow
+vim.g.terminal_color_4  = p.blue
+vim.g.terminal_color_5  = p.purple
+vim.g.terminal_color_6  = p.cyan
+vim.g.terminal_color_7  = p.fg
+vim.g.terminal_color_8  = p.comment
+vim.g.terminal_color_9  = p.red
+vim.g.terminal_color_10 = p.green
+vim.g.terminal_color_11 = p.yellow
+vim.g.terminal_color_12 = p.blue
+vim.g.terminal_color_13 = p.purple
+vim.g.terminal_color_14 = p.cyan
+vim.g.terminal_color_15 = p.fg

@@ -6,6 +6,7 @@ return {
     local nes = require("sidekick.nes")
     vim.g.copilot_enabled = false
     nes.disable()
+    vim.cmd('echo ', nes.enabled)
 
     vim.keymap.set('n', '<leader>cp', function()
       if vim.g.copilot_enabled then
