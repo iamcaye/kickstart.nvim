@@ -1,11 +1,12 @@
 return {
   "folke/sidekick.nvim",
   dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects"
+    "nvim-treesitter/nvim-treesitter-textobjects",
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim", -- REQUIRED
     "rcarriga/nvim-notify",          -- REQUIRED
-    "folke/n
+    "folke/noice.nvim",              -- REQUIRED
+  },
   opts = {
     -- add any options here
     cli = {
