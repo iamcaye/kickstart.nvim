@@ -164,6 +164,10 @@ vim.opt.scrolloff = 10
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
+vim.o.termguicolors = true
+vim.cmd.colorscheme("caye-ember")
+
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -186,6 +190,8 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 vim.keymap.set('n', '<leader>ts', '<cmd>split term://zsh<CR>', { desc = 'Open [T]erminal [S]plit' })
 vim.keymap.set('n', '<leader>tv', '<cmd>vsplit term://zsh<CR>', { desc = 'Open [T]erminal [V]ertical' })
 vim.keymap.set('n', '<leader>tt', '<cmd>tabnew term://zsh<CR>', { desc = 'Open [T]erminal [T]ab' })
+vim.keymap.set('n', '<leader>tf', '<cmd>e term://zsh<CR>', { desc = 'Open a new [T]erminal] [F]ullscreen' })
+vim.keymap.set('n', '<leader>th', '<cmd>sp term://zsh<CR>', { desc = 'Open a new [T]erminal [H]orizontally' })
 
 -- better resizing with ctrl + alt + arrow keys
 vim.keymap.set('n', '<C-A-Up>', '<cmd>resize +2<CR>', { desc = 'Increase height' })
@@ -198,6 +204,10 @@ vim.api.nvim_command 'autocmd TermOpen * setlocal nonumber norelativenumber'
 vim.api.nvim_command 'autocmd TermOpen * startinsert'
 vim.api.nvim_command 'autocmd TermEnter * setlocal signcolumn=no'
 
+-- quickfix list movement
+vim.keymap.set('n', '<leader>cn', '<cmd>cnext<CR>', { desc = 'Go to [C]omplaint [N]ext' })
+vim.keymap.set('n', '<leader>cp', '<cmd>cprev<CR>', { desc = 'Go to [C]omplaint [P]revious' })
+
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -206,12 +216,6 @@ vim.api.nvim_command 'autocmd TermEnter * setlocal signcolumn=no'
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
-
-vim.keymap.set('n', '<leader>t', '<cmd>vsp term://zsh<CR>', { desc = 'Open a new [T]erminal' })
-vim.keymap.set('n', '<leader>tf', '<cmd>e term://zsh<CR>', { desc = 'Open a new [T]erminal] [F]ullscreen' })
-vim.keymap.set('n', '<leader>th', '<cmd>sp term://zsh<CR>', { desc = 'Open a new [T]erminal [H]orizontally' })
--- open it in a new tab
-vim.keymap.set('n', '<leader>tt', '<cmd>tabnew term://zsh<CR>', { desc = 'Open a new [T]erminal in a new [T]ab' })
 
 --
 --  See `:help wincmd` for a list of all window commands
@@ -1077,19 +1081,19 @@ require('lazy').setup({
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
+        -- styles = {
+        -- comments = { italic = false }, -- Disable italics in comments
+        -- },
       }
 
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-moon'
+      -- vim.cmd.colorscheme 'tokyonight-moon'
 
       -- You can configure highlights by doing something like:
       -- vim.cmd.hi 'Comment gui=none'
-      vim.cmd.hi 'ColorColumn guibg=#333333'
+      -- vim.cmd.hi 'ColorColumn guibg=#333333'
     end,
   },
   -- {
