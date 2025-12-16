@@ -203,8 +203,8 @@ vim.api.nvim_command 'autocmd TermOpen * startinsert'
 vim.api.nvim_command 'autocmd TermEnter * setlocal signcolumn=no'
 
 -- quickfix list movement
-vim.keymap.set('n', '<leader>fn', '<cmd>cnext<CR>', { desc = 'Go to [C]omplaint [N]ext' })
-vim.keymap.set('n', '<leader>fp', '<cmd>cprev<CR>', { desc = 'Go to [C]omplaint [P]revious' })
+vim.keymap.set('n', '<leader>qn', '<cmd>cnext<CR>', { desc = 'Go to [Q]uickfix [N]ext' })
+vim.keymap.set('n', '<leader>qp', '<cmd>cprev<CR>', { desc = 'Go to [Q]uickfix [P]revious' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -730,8 +730,8 @@ require('lazy').setup({
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-          vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-          vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+          vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts)
+          vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, opts)
 
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
@@ -1069,33 +1069,45 @@ require('lazy').setup({
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        -- styles = {
-        -- comments = { italic = false }, -- Disable italics in comments
-        -- },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight'
-      vim.cmd.colorscheme 'caye-ember'
-
-      -- You can configure highlights by doing something like:
-      -- vim.cmd.hi 'Comment gui=none'
-      -- vim.cmd.hi 'ColorColumn guibg=#333333'
-    end,
-  },
-
+  -- { -- You can easily change to a different colorscheme.
+  --   -- Change the name of the colorscheme plugin below, and then
+  --   -- change the command in the config to whatever the name of that colorscheme is.
+  --   --
+  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  --   'folke/tokyonight.nvim',
+  --   priority = 1000, -- Make sure to load this before all the other start plugins.
+  --   config = function()
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     require('tokyonight').setup {
+  --       -- styles = {
+  --       -- comments = { italic = false }, -- Disable italics in comments
+  --       -- },
+  --     }
+  --
+  --     -- Load the colorscheme here.
+  --     -- Like many other themes, this one has different styles, and you could load
+  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --     vim.cmd.colorscheme 'tokyonight'
+  --     vim.cmd.colorscheme 'caye-ember'
+  --
+  --     -- You can configure highlights by doing something like:
+  --     -- vim.cmd.hi 'Comment gui=none'
+  --     -- vim.cmd.hi 'ColorColumn guibg=#333333'
+  --   end,
+  -- },
+  -- {
+  --   'projekt0n/github-nvim-theme',
+  --   name = 'github-theme',
+  --   lazy = false,      -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 100000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     -- require('github-theme').setup({
+  --     --   -- ...
+  --     -- })
+  --     -- vim.cmd.colorscheme 'github_light_high_contrast'
+  --     vim.cmd('colorscheme github_dark_high_contrast')
+  --   end,
+  -- },
   -- Highlight todo, notes, etc in comments
   {
     'folke/todo-comments.nvim',
@@ -1108,6 +1120,15 @@ require('lazy').setup({
         after = 'fg',
       },
       signs = true,
+      keywords = {
+        FIX = { icon = ' ', color = 'error', alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' } },
+        TODO = { icon = ' ', color = '#0088AA', alt = { 'TASK' } },
+        HACK = { icon = ' ', color = 'warning' },
+        WARN = { icon = ' ', color = 'warning', alt = { 'WARNING', 'XXX' } },
+        NOTE = { icon = ' ', color = '#00AA88', alt = { 'INFO' } },
+        PERF = { icon = '󰓅 ', alt = { 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
+        TEST = { icon = '󰙨 ', color = 'test', alt = { 'TESTING', 'PASSED', 'FAILED' } },
+      },
     },
   },
 
@@ -1164,6 +1185,7 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+      require('mini.statusline').setup()
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -1201,11 +1223,11 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`

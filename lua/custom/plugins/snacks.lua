@@ -11,12 +11,12 @@ return {
       dashboard = {
         -- header will be the output of 'ascii-image-converter ~/.config/caye-pc.png -C -d 60,30'
         sections = {
-          {
-            pane = 2,
-            section = "terminal",
-            cmd = "ascii-image-converter ~/.config/caye-pc.png -C -d 60,28 | tail -24",
-            height = 25,
-          },
+          -- {
+          --   pane = 2,
+          --   section = "terminal",
+          --   cmd = "ascii-image-converter ~/.config/caye-pc.png -C -d 60,28 | tail -24",
+          --   height = 25,
+          -- },
           {
             { section = "keys", gap = 1, padding = 1 },
             { section = "startup", gap = 1, padding = 1 },
