@@ -62,15 +62,30 @@ return {
       })
     end,
     keys = {
-      { "<leader>z",  function() Snacks.zen() end,                     desc = "Toggle Zen Mode" },
-      { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Toggle Zoom" },
-      { "<leader>.",  function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer" },
-      { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch Buffer" },
-      { "<leader>n",  function() Snacks.notifier.show_history() end,   desc = "Notification History" },
-      { "<leader>bd", function() Snacks.bufdelete() end,               desc = "Delete Buffer" },
-      { "<leader>cR", function() Snacks.rename.rename_file() end,      desc = "Rename File" },
-      { "<leader>gB", function() Snacks.gitbrowse() end,               desc = "Git Browse" },
-      { "<leader>gb", function() Snacks.git.blame_line() end,          desc = "Git Blame Line" },
+      { "<leader>z",   function() Snacks.zen() end,                   desc = "Toggle Zen Mode" },
+      { "<leader>Z",   function() Snacks.zen.zoom() end,              desc = "Toggle Zoom" },
+      { "<leader>.",   function() Snacks.scratch() end,               desc = "Toggle Scratch Buffer" },
+      { "<leader>S",   function() Snacks.scratch.select() end,        desc = "Select Scratch Buffer" },
+      { "<leader>n",   function() Snacks.notifier.show_history() end, desc = "Notification History" },
+      { "<leader>bd",  function() Snacks.bufdelete() end,             desc = "Delete Buffer" },
+      { "<leader>cR",  function() Snacks.rename.rename_file() end,    desc = "Rename File" },
+      { "<leader>gB",  function() Snacks.gitbrowse() end,             desc = "Git Browse" },
+      { "<leader>gbl", function() Snacks.git.blame_line() end,        desc = "Git Blame Line" },
+      {
+        "<leader>gbc",
+        function()
+          -- copy branch name in clipboard
+          local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+
+          if branch then
+            vim.fn.setreg("+", branch)
+            Snacks.notifier.notify("Copied branch name: " .. branch, { title = "Git Copy Branch Name" })
+          else
+            Snacks.notifier.notify("No branch name found", { title = "Git Copy Branch Name", level = "error" })
+          end
+        end,
+        desc = "Git Copy Branch Name"
+      },
       { "<leader>gf", function() Snacks.lazygit.log_file() end,        desc = "Lazygit Current File History" },
       { "<leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
       { "<leader>gl", function() Snacks.lazygit.log() end,             desc = "Lazygit Log (cwd)" },

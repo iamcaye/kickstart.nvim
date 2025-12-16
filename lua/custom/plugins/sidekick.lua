@@ -56,12 +56,9 @@ return {
       mode = { "n", "x", "i", "t" },
       desc = "Sidekick Switch Focus",
     },
-    -- Example of a keybinding to open Claude directly
-    {
-      "<leader>ac",
-      function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
-      desc = "Sidekick Claude Toggle",
-      mode = { "n", "v" },
-    },
   },
+  config = function()
+    local nes = require 'sidekick.nes'
+    nes.disable()
+  end
 }

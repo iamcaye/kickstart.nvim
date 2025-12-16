@@ -203,8 +203,8 @@ vim.api.nvim_command 'autocmd TermOpen * startinsert'
 vim.api.nvim_command 'autocmd TermEnter * setlocal signcolumn=no'
 
 -- quickfix list movement
-vim.keymap.set('n', '<leader>cn', '<cmd>cnext<CR>', { desc = 'Go to [C]omplaint [N]ext' })
-vim.keymap.set('n', '<leader>cp', '<cmd>cprev<CR>', { desc = 'Go to [C]omplaint [P]revious' })
+vim.keymap.set('n', '<leader>fn', '<cmd>cnext<CR>', { desc = 'Go to [C]omplaint [N]ext' })
+vim.keymap.set('n', '<leader>fp', '<cmd>cprev<CR>', { desc = 'Go to [C]omplaint [P]revious' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')

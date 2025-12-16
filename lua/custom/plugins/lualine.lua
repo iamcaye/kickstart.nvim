@@ -1,6 +1,7 @@
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'kyazdani42/nvim-web-devicons' },
+  options = { theme = 'tokyonight' },
   config = function()
     -- Eviline config for lualine
     -- Author: shadmansaleh
@@ -184,6 +185,11 @@ return {
         local msg = '🤖⛔'
         if vim.g.copilot_enabled then
           msg = '🤖✅'
+        end
+        if require('sidekick.nes').enabled then
+          msg = msg .. ' 🥸✅'
+        else
+          msg = msg .. ' 🥸⛔'
         end
 
         return msg

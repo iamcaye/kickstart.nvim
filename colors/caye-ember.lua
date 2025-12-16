@@ -29,15 +29,15 @@ vim.g.colors_name = "caye-ember"
 -----------------------------------------------------------------------
 -- EDITOR UI
 -----------------------------------------------------------------------
-hi("Normal", { fg = p.fg, bg = p.bg })
-hi("NormalNC", { fg = p.fg_dim, bg = p.bg })
-hi("CursorLine", { bg = p.current_line })
-hi("LineNr", { fg = p.comment })
-hi("CursorLineNr", { fg = p.orange_bold, bold = true })
-hi("WinSeparator", { fg = p.border })
-hi("Visual", { bg = p.selection })
-hi("Search", { fg = p.bg, bg = p.orange_bold })
-hi("IncSearch", { fg = p.bg, bg = p.orange })
+-- hi("Normal", { fg = p.fg, bg = p.bg })
+-- hi("NormalNC", { fg = p.fg_dim, bg = p.bg })
+-- hi("CursorLine", { bg = p.current_line })
+-- hi("LineNr", { fg = p.comment })
+-- hi("CursorLineNr", { fg = p.orange_bold, bold = true })
+-- hi("WinSeparator", { fg = p.border })
+-- hi("Visual", { bg = p.selection })
+-- hi("Search", { fg = p.bg, bg = p.orange_bold })
+-- hi("IncSearch", { fg = p.bg, bg = p.orange })
 
 hi("Pmenu", { bg = p.bg_alt })
 hi("PmenuSel", { fg = p.bg, bg = p.orange })
