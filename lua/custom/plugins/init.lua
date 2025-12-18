@@ -3,10 +3,10 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  {
-    dir = "~/fun/launxer.nvim",
-    config = function()
-      require('launxer')
-    end
-  },
+  -- {
+  --   dir = "~/fun/launxer.nvim",
+  --   config = function()
+  --     require('launxer')
+  --   end
+  -- },
 }
