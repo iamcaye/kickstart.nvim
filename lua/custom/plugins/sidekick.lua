@@ -1,17 +1,17 @@
 return {
-  "folke/sidekick.nvim",
+  'folke/sidekick.nvim',
   dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    "nvim-lua/plenary.nvim",
-    "nvim-telescope/telescope.nvim", -- REQUIRED
-    "rcarriga/nvim-notify",          -- REQUIRED
-    "folke/noice.nvim",              -- REQUIRED
+    -- "nvim-treesitter/nvim-treesitter-textobjects",
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim', -- REQUIRED
+    'rcarriga/nvim-notify', -- REQUIRED
+    'folke/noice.nvim', -- REQUIRED
   },
   opts = {
     -- add any options here
     cli = {
       mux = {
-        backend = "zellij",
+        backend = 'zellij',
         enabled = true,
       },
     },
@@ -64,5 +64,5 @@ return {
   config = function()
     local nes = require 'sidekick.nes'
     nes.disable()
-  end
+  end,
 }

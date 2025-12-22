@@ -86,7 +86,6 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -99,7 +98,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
-vim.opt.colorcolumn = "80,120"
+vim.opt.colorcolumn = '80,120'
 
 -- Make line numbers default
 vim.opt.number = true
@@ -314,15 +313,15 @@ require('lazy').setup({
     'stevearc/oil.nvim',
     opts = {},
     -- Optional dependencies
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
     config = function()
-      require("oil").setup {
-        columns = { "icon" },
+      require('oil').setup {
+        columns = { 'icon' },
         view_options = {
-          show_hidden = true
+          show_hidden = true,
         },
       }
-    end
+    end,
   },
 
   -- { -- cody
@@ -378,15 +377,15 @@ require('lazy').setup({
         end
 
         require('telescope.pickers')
-            .new({}, {
-              prompt_title = 'Harpoon',
-              finder = require('telescope.finders').new_table {
-                results = file_paths,
-              },
-              previewer = conf.file_previewer {},
-              sorter = conf.generic_sorter {},
-            })
-            :find()
+          .new({}, {
+            prompt_title = 'Harpoon',
+            finder = require('telescope.finders').new_table {
+              results = file_paths,
+            },
+            previewer = conf.file_previewer {},
+            sorter = conf.generic_sorter {},
+          })
+          :find()
       end
 
       vim.keymap.set('n', '<leader>hf', function()
@@ -405,7 +404,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',  opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Alternatively, use `config = function() ... end` for full control over the configuration.
   -- If you prefer to call `setup` explicitly, use:
@@ -450,7 +449,7 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -496,7 +495,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -517,7 +516,7 @@ require('lazy').setup({
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
+    tag = 'v0.2.0',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -536,7 +535,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -646,7 +645,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -730,8 +729,12 @@ require('lazy').setup({
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-          vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts)
-          vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, opts)
+          vim.keymap.set('n', ']d', function()
+            vim.diagnostic.goto_next()
+          end, opts)
+          vim.keymap.set('n', '[d', function()
+            vim.diagnostic.goto_prev()
+          end, opts)
 
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
@@ -1191,7 +1194,6 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
       ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
@@ -1237,7 +1239,6 @@ require('lazy').setup({
 
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = 'custom.plugins' },
-
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
